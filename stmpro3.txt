@@ -1,0 +1,39 @@
+int Switch = PC13;
+int LED = PA5;
+bool switchState = false;
+bool lastSwitchState = false;
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50;
+
+void setup() {
+
+  pinMode(Switch, INPUT_PULLUP);
+  pinMode(LED, OUTPUT);
+
+  Serial.begin(9600);
+  Serial.println("Start");
+
+}
+
+void loop() {
+  int reading = digitalRead(Switch);
+
+  if (reading != lastSwitchState) {
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != switchState) {
+      switchState = reading;
+
+      if (switchState == LOW) {
+        Serial.println("Pressed - PullDown");
+        digitalWrite(LED, HIGH); // Turn on the LED
+      } else {
+        digitalWrite(LED, LOW); // Turn off the LED
+      }
+    }
+  }
+
+  lastSwitchState = reading;
+}
