@@ -1,0 +1,31 @@
+#define RED 1
+#define YELLOW 5
+#define GREEN 9
+
+void setup() {
+  pinMode(RED, OUTPUT);
+  pinMode(YELLOW, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+}
+
+void loop() {
+  // Green light for 5 seconds
+  digitalWrite(GREEN, HIGH);
+  delay(5000); 
+
+  // Transition to yellow
+  digitalWrite(GREEN, LOW);
+  digitalWrite(YELLOW, HIGH);
+  delay(2000);
+
+  // Red light for 4 seconds
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(RED, HIGH);
+  delay(4000);
+
+  // Transition to green
+  digitalWrite(YELLOW, HIGH);
+  delay(2000);
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(RED, LOW); 
+}
